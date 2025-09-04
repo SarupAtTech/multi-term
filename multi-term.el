@@ -634,10 +634,10 @@ Similar to how `quoted-insert' works in a regular buffer."
   ;; Just test tramp file when library `tramp' is loaded.
   (when (and (featurep 'tramp)
              (tramp-tramp-file-p default-dir))
-    (with-parsed-tramp-file-name default-dir multi-term-path
-      (let ((method (cadr (assoc `tramp-login-program (assoc multi-term-path-method tramp-methods)))))
-        (term-send-raw-string (concat method " " (when multi-term-path-user (concat multi-term-path-user "@")) multi-term-path-host "\C-m"))
-        (term-send-raw-string (concat "cd '" multi-term-path-localname "'\C-m"))))))
+    (with-parsed-tramp-file-name default-dir path
+      (let ((method (cadr (assoc `tramp-login-program (assoc path-method tramp-methods)))))
+        (term-send-raw-string (concat method " " (when path-user (concat path-user "@")) path-host "\C-m"))
+        (term-send-raw-string (concat "cd '" path-localname "'\C-m"))))))
 
 (defun multi-term-get-buffer (&optional special-shell dedicated-window)
   "Get term buffer.
